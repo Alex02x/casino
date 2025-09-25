@@ -21,7 +21,13 @@ class RoulettePage extends Component
 
     public $fullSum = 0;
 
-    public $positionsCounts = [];
+    public $positionsCounts = [
+        'straight' => 0,
+        'split' => 0,
+        'street' => 0,
+        'corner' => 0,
+        'sixline' => 0
+    ];
 
 
     public function showStakesModes()

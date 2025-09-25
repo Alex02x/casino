@@ -106,7 +106,7 @@
             </h2>
 
             <!-- Контейнер для сетки -->
-            <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
+            <div class="relative w-full h-screen bg-gray-950 rounded-lg pt-10 overflow-hidden">
                 <!-- Двойная линия сверху -->
                 <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>
                 <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>

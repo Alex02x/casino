@@ -1,3 +1,4 @@
+// app/Livewire/RoulettePage.php
 <?php
 
 namespace App\Livewire;
@@ -8,6 +9,9 @@ class RoulettePage extends Component
 {
     public function render()
     {
-        return view('livewire.roulette-page');
+        return view('livewire.roulette-page')
+            ->layout('layouts.app', [
+                'title' => __('Рулетка — Тренировка'),
+            ]);
     }
 }

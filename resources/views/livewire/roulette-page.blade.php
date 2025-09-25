@@ -92,7 +92,7 @@
             </div>
         </div>
 
-    @elseif ($view === 'training')
+    @elseif ($view === 'training_test')
         <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
             <!-- Заголовок -->
             <h2 class="text-xl font-bold text-white mb-4">

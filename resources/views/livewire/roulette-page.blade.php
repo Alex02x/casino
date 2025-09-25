@@ -130,8 +130,6 @@
                             transform: translate(-50%, -50%);
                             width: 96px;
                             height: 96px;
-                            sum: {{ $bet['sum'] }};
-                            positionName: {{ $bet['positionName'] }}
                         "
                         >
                             <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
@@ -141,24 +139,17 @@
                     @endif
                 @endforeach
 
-
-                <!-- Кнопка "Вернуться к выбору" -->
-                <button
-                    wire:click="goBack"
-                    class="absolute bottom-4 right-4 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-md transition-colors"
-                >
-                    ← Вернуться к выбору
-                </button>
             </div>
 
             <!-- Кнопка "Назад" (всегда внизу) -->
             <div class="mt-4 text-center">
                 <button
                     wire:click="goBack"
-                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"
+                    class="px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-4xl"
                 >
                     Вернуться к выбору
                 </button>
+
             </div>
         </div>
     @endif

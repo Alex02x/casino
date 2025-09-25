@@ -99,20 +99,23 @@
                 <h2 class="text-2xl font-bold mb-6 text-center">Результат тренировки</h2>
 
                 <div class="space-y-4 mb-8">
-                    @foreach ($positionsCounts as $type => $sum)
-                        @if ($sum > 0)
+                    @foreach ($positionsCounts as $type => $data)
+                        @if ($data['chips'] > 0 || $data['sum'] > 0)
                             <div class="flex justify-between items-center p-3 bg-gray-800 rounded">
-                            <span class="font-medium capitalize">
-                                {{ match($type) {
-                                    'straight' => 'Прямая ставка',
-                                    'split' => 'Сплит',
-                                    'street' => 'Стрит',
-                                    'corner' => 'Корнер',
-                                    'sixline' => 'Сикслайн',
-                                    default => $type
-                                } }}
-                            </span>
-                                <span class="text-emerald-400 font-bold">{{ number_format($sum, 0, '', ' ') }} фишек</span>
+                        <span class="font-medium capitalize">
+                            {{ match($type) {
+                                'straight' => 'Прямая ставка',
+                                'split' => 'Сплит',
+                                'street' => 'Стрит',
+                                'corner' => 'Корнер',
+                                'sixline' => 'Сикслайн',
+                                default => $type
+                            } }}
+                        </span>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-300">{{ number_format($data['chips'], 0, '', ' ') }} фишек</div>
+                                    <div class="text-emerald-400 font-bold">{{ number_format($data['sum'], 0, '', ' ') }} выплата</div>
+                                </div>
                             </div>
                         @endif
                     @endforeach

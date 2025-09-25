@@ -22,11 +22,26 @@ class RoulettePage extends Component
     public $fullSum = 0;
 
     public $positionsCounts = [
-        'straight' => 0,
-        'split' => 0,
-        'street' => 0,
-        'corner' => 0,
-        'sixline' => 0
+        'straight' => [
+            'chips' => 0,
+            'sum' => 0,
+        ],
+        'split' => [
+            'chips' => 0,
+            'sum' => 0,
+        ],
+        'street' => [
+            'chips' => 0,
+            'sum' => 0,
+        ],
+        'corner' => [
+            'chips' => 0,
+            'sum' => 0,
+        ],
+        'sixline' => [
+            'chips' => 0,
+            'sum' => 0,
+        ]
     ];
 
 
@@ -45,11 +60,26 @@ class RoulettePage extends Component
         $this->showingResult = false;
         // Опционально: сбросить счётчики, чтобы не накапливались при новой генерации
         $this->positionsCounts = [
-            'straight' => 0,
-            'split' => 0,
-            'street' => 0,
-            'corner' => 0,
-            'sixline' => 0
+            'straight' => [
+                'chips' => 0,
+                'sum' => 0,
+            ],
+            'split' => [
+                'chips' => 0,
+                'sum' => 0,
+            ],
+            'street' => [
+                'chips' => 0,
+                'sum' => 0,
+            ],
+            'corner' => [
+                'chips' => 0,
+                'sum' => 0,
+            ],
+            'sixline' => [
+                'chips' => 0,
+                'sum' => 0,
+            ]
         ];
         $this->fullSum = 0;
     }
@@ -184,7 +214,9 @@ class RoulettePage extends Component
                 'sum' => $sum,
             ];
 
-            $this->positionsCounts[$positionName] += $sum;
+            $this->positionsCounts[$positionName]['chips'] += $chips[$i];
+            $this->positionsCounts[$positionName]['sum'] += $sum;
+
         }
 
         $this->fullSum = array_sum(array_column($results, 'sum'));

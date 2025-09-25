@@ -128,7 +128,7 @@ class RoulettePage extends Component
                 'id' => $i + 1,
                 'x' => $xPositions[$col],
                 'y' => $yPositions[$row],
-                'chips' => $i + 1,
+                'chips' => $chips[$i],
             ];
         }
 

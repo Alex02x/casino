@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="text-center text-xl font-semibold mb-6">
-                    Общая выплата: <span class="text-yellow-400">{{ number_format($fullSum, 0, '', ' ') }}</span> фишек
+                    Общая выплата: <span class="text-yellow-400">{{ number_format($fullSum, 0, '', ' ') }}</span>
                 </div>
 
                 <div class="flex justify-center gap-4">

@@ -93,64 +93,108 @@
         </div>
 
     @elseif ($view === 'training_test')
-        <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
-            <!-- Заголовок -->
-            <h2 class="text-xl font-bold text-white mb-4">
-                Тренировка: {{ match($selectedStakesMode) {
-                '1-2' => '1–2 стэка',
-                '3-plus' => '3+ стэков',
-                'ultra' => 'Ultra Mode (20+ стэков)',
-                default => 'Неизвестный режим'
-            }
-            }}
-            </h2>
+        @if ($showingResult)
+            <!-- Отображение результата -->
+            <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-6 text-white">
+                <h2 class="text-2xl font-bold mb-6 text-center">Результат тренировки</h2>
 
-            <!-- Контейнер для сетки -->
-            <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
-                <!-- Двойная линия сверху -->
-                <div class="absolute top-15 left-0 right-0 h-1 bg-yellow-400"></div>
-                <div class="absolute top-20 left-0 right-0 h-1 bg-yellow-400"></div>
-
-                <!-- Горизонтальные линии (разделяют 3 ряда) -->
-                <div class="absolute top-[40%] left-0 right-0 h-1 bg-yellow-400"></div>
-                <div class="absolute top-[83%] left-0 right-0 h-1 bg-yellow-400"></div>
-
-                <!-- Вертикальные линии (разделяют 3 колонки) -->
-                <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
-                <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
-
-                <!-- Кружочки ставок -->
-                @foreach ($this->getTrainingPositions() as $bet)
-                    @if($bet['chips'] != 0)
-                        <div
-                            class="absolute flex items-center justify-center text-4xl font-bold text-white"
-                            style="
-                            left: {{ $bet['x'] }}%;
-                            top: {{ $bet['y'] }}%;
-                            transform: translate(-50%, -50%);
-                            width: 96px;
-                            height: 96px;
-                        "
-                        >
-                            <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
-                                {{ $bet['chips'] }}
+                <div class="space-y-4 mb-8">
+                    @foreach ($positionsCounts as $type => $sum)
+                        @if ($sum > 0)
+                            <div class="flex justify-between items-center p-3 bg-gray-800 rounded">
+                            <span class="font-medium capitalize">
+                                {{ match($type) {
+                                    'straight' => 'Прямая ставка',
+                                    'split' => 'Сплит',
+                                    'street' => 'Стрит',
+                                    'corner' => 'Корнер',
+                                    'sixline' => 'Сикслайн',
+                                    default => $type
+                                } }}
+                            </span>
+                                <span class="text-emerald-400 font-bold">{{ number_format($sum, 0, '', ' ') }} фишек</span>
                             </div>
-                        </div>
-                    @endif
-                @endforeach
+                        @endif
+                    @endforeach
+                </div>
 
+                <div class="text-center text-xl font-semibold mb-6">
+                    Общая выплата: <span class="text-yellow-400">{{ number_format($fullSum, 0, '', ' ') }}</span> фишек
+                </div>
+
+                <div class="flex justify-center gap-4">
+                    <button
+                        wire:click="goBack"
+                        class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-lg"
+                    >
+                        ← Назад к выбору режима
+                    </button>
+                    <button
+                        wire:click="continueTraining"
+                        class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-md text-lg"
+                    >
+                        Новая тренировка
+                    </button>
+                </div>
             </div>
+        @else
+            <!-- Сетка тренировки (как было) -->
+            <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
+                <h2 class="text-xl font-bold text-white mb-4">
+                    Тренировка: {{ match($selectedStakesMode) {
+                    '1-2' => '1–2 стэка',
+                    '3-plus' => '3+ стэков',
+                    'ultra' => 'Ultra Mode (20+ стэков)',
+                    default => 'Неизвестный режим'
+                } }}
+                </h2>
 
-            <!-- Кнопка "Назад" (всегда внизу) -->
-            <div class="mt-4 text-center">
-                <button
-                    wire:click="goBack"
-                    class="px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-4xl"
-                >
-                    Вернуться к выбору
-                </button>
+                <div class="relative w-full h-[60vh] bg-gray-950 rounded-lg overflow-hidden">
+                    <!-- Линии сетки -->
+                    <div class="absolute top-15 left-0 right-0 h-1 bg-yellow-400"></div>
+                    <div class="absolute top-20 left-0 right-0 h-1 bg-yellow-400"></div>
+                    <div class="absolute top-[40%] left-0 right-0 h-1 bg-yellow-400"></div>
+                    <div class="absolute top-[83%] left-0 right-0 h-1 bg-yellow-400"></div>
+                    <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
+                    <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
 
+                    <!-- Ставки -->
+                    @foreach ($this->getTrainingPositions() as $bet)
+                        @if($bet['chips'] != 0)
+                            <div
+                                class="absolute flex items-center justify-center text-4xl font-bold text-white"
+                                style="
+                                left: {{ $bet['x'] }}%;
+                                top: {{ $bet['y'] }}%;
+                                transform: translate(-50%, -50%);
+                                width: 96px;
+                                height: 96px;
+                            "
+                            >
+                                <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                                    {{ $bet['chips'] }}
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+
+                <!-- Кнопки -->
+                <div class="mt-6 flex justify-center gap-4">
+                    <button
+                        wire:click="goBack"
+                        class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-lg"
+                    >
+                        ← Назад
+                    </button>
+                    <button
+                        wire:click="showResult"
+                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg"
+                    >
+                        Проверить
+                    </button>
+                </div>
             </div>
-        </div>
+        @endif
     @endif
 </div>

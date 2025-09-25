@@ -30,6 +30,30 @@ class RoulettePage extends Component
     ];
 
 
+    // В начале класса, рядом с другими public/protected свойствами
+    public bool $showingResult = false;
+
+    public function showResult()
+    {
+        // Убедимся, что данные сгенерированы (на случай, если вызвано напрямую)
+        $this->getTrainingPositions(); // это обновит positionsCounts и fullSum
+        $this->showingResult = true;
+    }
+
+    public function continueTraining()
+    {
+        $this->showingResult = false;
+        // Опционально: сбросить счётчики, чтобы не накапливались при новой генерации
+        $this->positionsCounts = [
+            'straight' => 0,
+            'split' => 0,
+            'street' => 0,
+            'corner' => 0,
+            'sixline' => 0
+        ];
+        $this->fullSum = 0;
+    }
+
     public function showStakesModes()
     {
         $this->view = 'stakes';

@@ -122,7 +122,7 @@
                 <!-- Кружочки ставок -->
                 @foreach ($this->getTrainingPositions() as $bet)
                     <div
-                        class="absolute flex items-center justify-center text-xs font-bold text-white"
+                        class="absolute flex items-center justify-center text-xl font-bold text-white"
                         style="
                         left: {{ $bet['x'] }}%;
                         top: {{ $bet['y'] }}%;

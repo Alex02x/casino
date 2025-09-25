@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\RoulettePage;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
@@ -14,6 +15,8 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
+    // Добавляем маршрут для страницы рулетки'
+    Route::get('/roulette', RoulettePage::class)->name('roulette');
 
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
     Volt::route('settings/password', 'settings.password')->name('password.edit');

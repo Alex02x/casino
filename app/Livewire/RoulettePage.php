@@ -6,7 +6,12 @@ use Livewire\Component;
 
 class RoulettePage extends Component
 {
-    public string $mode = 'stakes'; // по умолчанию — заставки
+    public function startStakesTraining()
+    {
+        // Пока просто перенаправим на ту же страницу с параметром или покажем модалку.
+        // Позже здесь будет логика запуска тренировки.
+        $this->redirectRoute('roulette.stakes'); // или оставьте как заглушку
+    }
 
     public function render()
     {

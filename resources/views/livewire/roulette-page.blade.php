@@ -8,73 +8,45 @@
         </a>
     </div>
 
-    <!-- Меню режимов -->
-    <div class="flex flex-wrap gap-2">
-        <button
-            wire:click="$set('mode', 'stakes')"
-            class="px-4 py-2 rounded-lg text-sm font-medium transition-colors
-                {{ $mode === 'stakes'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-neutral-700 dark:text-gray-200 dark:hover:bg-neutral-600' }}"
+    <!-- Сетка виджетов (как на dashboard) -->
+    <div class="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <!-- 1. Заставки (активный) -->
+        <div
+            class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-red-900 to-black flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
+            wire:click="startStakesTraining"
         >
-            Заставки (1–2 стэка, 3+ стэков)
-        </button>
-        <button
-            disabled
-            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
-        >
-            Прямое попадание комплитов
-        </button>
-        <button
-            disabled
-            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
-        >
-            Пересечения комплитов
-        </button>
-        <button
-            disabled
-            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
-        >
-            Выплата с трэка
-        </button>
-        <button
-            disabled
-            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 dark:text-gray-500 cursor-not-allowed"
-        >
-            Сдача с трэка
-        </button>
-    </div>
+            <div class="text-4xl mb-2">🎯</div>
+            <h3 class="text-lg font-semibold mb-1">Заставки</h3>
+            <p class="text-xs text-gray-300 mb-3">1–2 стэка, 3+ стэков</p>
+            <span class="px-3 py-1 bg-blue-600 text-white text-xs rounded-full">Тренироваться</span>
+        </div>
 
-    <!-- Контент в зависимости от режима -->
-    <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-gray-900 to-black flex flex-col items-center justify-center p-6 text-white">
-        @if ($mode === 'stakes')
-            <div class="text-center max-w-2xl">
-                <div class="text-5xl mb-4">🎯</div>
-                <h2 class="text-xl font-semibold mb-3">Тренировка заставок</h2>
-                <p class="text-gray-300 mb-6">
-                    Отрабатывайте объявления и расстановку фишек для:
-                </p>
-                <ul class="space-y-2 text-left bg-gray-800/50 p-4 rounded-lg">
-                    <li class="flex items-start">
-                        <span class="text-green-400 mr-2">•</span>
-                        <span><strong>1–2 стэка:</strong> простые заставки (например, "17 и 20")</span>
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-blue-400 mr-2">•</span>
-                        <span><strong>3+ стэков:</strong> сложные заставки (например, "17, 20, 23 и 26")</span>
-                    </li>
-                </ul>
-                <div class="mt-6">
-                    <button class="px-5 py-2 bg-blue-600 hover:bg-blue-700 rounded-md font-medium transition-colors">
-                        Начать тренировку
-                    </button>
-                </div>
-            </div>
-        @else
-            <!-- Заглушка для других режимов -->
-            <div class="text-center">
-                <p class="text-gray-400">Режим пока не реализован.</p>
-            </div>
-        @endif
+        <!-- 2. Прямое попадание комплитов (заглушка) -->
+        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4 text-center text-gray-500">
+            <div class="text-4xl mb-2">🎯</div>
+            <h3 class="text-lg font-semibold mb-1">Прямое попадание комплитов</h3>
+            <p class="text-xs">Скоро</p>
+        </div>
+
+        <!-- 3. Пересечения комплитов -->
+        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4 text-center text-gray-500">
+            <div class="text-4xl mb-2">🔄</div>
+            <h3 class="text-lg font-semibold mb-1">Пересечения комплитов</h3>
+            <p class="text-xs">Скоро</p>
+        </div>
+
+        <!-- 4. Выплата с трэка -->
+        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4 text-center text-gray-500">
+            <div class="text-4xl mb-2">💰</div>
+            <h3 class="text-lg font-semibold mb-1">Выплата с трэка</h3>
+            <p class="text-xs">Скоро</p>
+        </div>
+
+        <!-- 5. Сдача с трэка -->
+        <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-gray-800 to-gray-900 flex flex-col items-center justify-center p-4 text-center text-gray-500">
+            <div class="text-4xl mb-2">📤</div>
+            <h3 class="text-lg font-semibold mb-1">Сдача с трэка</h3>
+            <p class="text-xs">Скоро</p>
+        </div>
     </div>
 </div>

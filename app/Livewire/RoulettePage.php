@@ -108,20 +108,32 @@ class RoulettePage extends Component
 
     public function getTrainingPositions()
     {
-        return [
-            ['id' => 1, 'x' => 33, 'y' => 7, 'chips' => 1],   // сверху по центру (над двойной линией)
-            ['id' => 2, 'x' => 50, 'y' => 7, 'chips' => 2],  // левый верхний угол
-            ['id' => 3, 'x' => 66, 'y' => 7, 'chips' => 3],  // центр верхнего ряда
-            ['id' => 4, 'x' => 33, 'y' => 40, 'chips' => 4],  // правый верхний угол
-            ['id' => 5, 'x' => 50, 'y' => 40, 'chips' => 5],  // левый средний
-            ['id' => 6, 'x' => 66, 'y' => 40, 'chips' => 6],  // центр среднего
-            ['id' => 7, 'x' => 33, 'y' => 60, 'chips' => 7],  // правый средний
-            ['id' => 8, 'x' => 50, 'y' => 60, 'chips' => 8],  // левый нижний
-            ['id' => 9, 'x' => 66, 'y' => 60, 'chips' => 9],  // центр нижнего
-            ['id' => 10, 'x' => 33, 'y' => 83, 'chips' => 10], // правый нижний
-            ['id' => 11, 'x' => 50, 'y' => 83, 'chips' => 10], // правый нижний
-            ['id' => 12, 'x' => 66, 'y' => 83, 'chips' => 10], // правый нижний
-        ];
+        $chips = $this->generateChips();
+
+
+        $results = [];
+        $yPositions = [7, 40, 60, 83]; // 4 строки
+        $xPositions = [33, 50, 66];    // 3 колонки
+
+        for ($i = 0; $i < $this->positionsCount; $i++) {
+            $row = floor($i / 3);
+            $col = $i % 3;
+
+            // Защита от выхода за пределы доступных строк
+            if ($row >= count($yPositions)) {
+                break; // или throw exception, если нужно строгое соответствие
+            }
+
+            $results[] = [
+                'id' => $i + 1,
+                'x' => $xPositions[$col],
+                'y' => $yPositions[$row],
+                'chips' => $i + 1,
+            ];
+        }
+
+        return $results;
+
     }
     public function render()
     {

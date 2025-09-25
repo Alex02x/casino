@@ -108,16 +108,16 @@
             <!-- Контейнер для сетки -->
             <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
                 <!-- Двойная линия сверху -->
-                <div class="absolute top-1 left-0 right-0 h-0.5 bg-yellow-400"></div>
-                <div class="absolute top-5 left-0 right-0 h-0.5 bg-yellow-400"></div>
+                <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>
 
                 <!-- Горизонтальные линии (разделяют 3 ряда) -->
-                <div class="absolute top-[33%] left-0 right-0 h-0.5 bg-yellow-400"></div>
-                <div class="absolute top-[66%] left-0 right-0 h-0.5 bg-yellow-400"></div>
+                <div class="absolute top-[33%] left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-[66%] left-0 right-0 h-1 bg-yellow-400"></div>
 
                 <!-- Вертикальные линии (разделяют 3 колонки) -->
-                <div class="absolute left-[33%] top-0 bottom-0 w-0.5 bg-yellow-400"></div>
-                <div class="absolute left-[66%] top-0 bottom-0 w-0.5 bg-yellow-400"></div>
+                <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
+                <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
 
                 <!-- Кружочки ставок -->
                 @foreach ($this->getTrainingPositions() as $bet)

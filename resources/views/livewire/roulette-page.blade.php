@@ -94,61 +94,45 @@
 
     @elseif ($view === 'training')
         <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
-            <!-- Сетка рулетки -->
-            <div class="grid grid-cols-12 gap-1 w-full" style="aspect-ratio: 4/1;">
-                @for ($col = 0; $col < 12; $col++)
-                    @for ($row = 0; $row < 3; $row++)
-                        <div class="aspect-square bg-gray-800 rounded flex items-center justify-center text-xs text-white border border-gray-700">
-                            {{-- Можно добавить номер позже --}}
-                        </div>
-                    @endfor
-                @endfor
-            </div>
+            <!-- Заголовок -->
+            <h2 class="text-xl font-bold text-white mb-4">
+                Тренировка: {{ match($selectedStakesMode) {
+                '1-2' => '1–2 стэка',
+                '3-plus' => '3+ стэков',
+                'ultra' => 'Ultra Mode (20+ стэков)',
+                default => 'Неизвестный режим'
+            }}}
+            </h2>
 
-            <!-- Кружочки ставок (абсолютное позиционирование) -->
-            <div class="absolute inset-0 pointer-events-none">
-                @php
-                    $bets = [
-                        // Six-line (1-6)
-                        ['x' => 0.5, 'y' => 0.5, 'stacks' => 1],
-                        // Six-line (7-12)
-                        ['x' => 2.5, 'y' => 0.5, 'stacks' => 2],
-                        // Street (13-15)
-                        ['x' => 4.5, 'y' => 2, 'stacks' => 3],
-                        // Corners
-                        ['x' => 5.5, 'y' => 0.5, 'stacks' => 4],
-                        ['x' => 6.5, 'y' => 0.5, 'stacks' => 5],
-                        ['x' => 6.5, 'y' => 1.5, 'stacks' => 6],
-                        ['x' => 7.5, 'y' => 1.5, 'stacks' => 7],
-                        // Splits
-                        ['x' => 8.5, 'y' => 2, 'stacks' => 8],
-                        ['x' => 9, 'y' => 1.5, 'stacks' => 9],
-                        ['x' => 10, 'y' => 0.5, 'stacks' => 10],
-                        ['x' => 11.5, 'y' => 2, 'stacks' => 11],
-                        // Straight-up (36)
-                        ['x' => 11.5, 'y' => 2.5, 'stacks' => 12],
-                    ];
-                @endphp
-
-                @foreach ($bets as $bet)
+            <!-- Контейнер для кружочков -->
+            <div class="relative w-full h-96 bg-gray-950 rounded-lg overflow-hidden">
+                @foreach ($this->getTrainingBets() as $bet)
                     <div
                         class="absolute flex items-center justify-center text-xs font-bold text-white"
                         style="
-                        left: calc({{ $bet['x'] }} * (100% / 12));
-                        top: calc({{ $bet['y'] }} * (100% / 3));
+                        left: {{ $bet['x'] }}%;
+                        top: {{ $bet['y'] }}%;
                         transform: translate(-50%, -50%);
                         width: 24px;
                         height: 24px;
                     "
                     >
-                        <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center">
+                        <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
                             {{ $bet['stacks'] }}
                         </div>
                     </div>
                 @endforeach
+
+                <!-- Кнопка "Вернуться к выбору" (если нужно) -->
+                <button
+                    wire:click="goBack"
+                    class="absolute bottom-4 right-4 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-md transition-colors"
+                >
+                    ← Вернуться к выбору
+                </button>
             </div>
 
-            <!-- Кнопка назад -->
+            <!-- Кнопка "Назад" (всегда внизу) -->
             <div class="mt-4 text-center">
                 <button
                     wire:click="goBack"

@@ -129,6 +129,8 @@
                         transform: translate(-50%, -50%);
                         width: 48px;
                         height: 48px;
+                        sum: {{ $bet['sum'] }};
+                        positionName: {{ $bet['positionName'] }}
                     "
                     >
                         <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">

@@ -115,6 +115,21 @@ class RoulettePage extends Component
         $yPositions = [7, 40, 60, 83]; // 4 строки
         $xPositions = [33, 50, 66];    // 3 колонки
 
+        $betTypes = [
+            1 => 'sixline',
+            2 => 'street',
+            3 => 'sixline',
+            4 => 'corner',
+            5 => 'split',
+            6 => 'corner',
+            7 => 'split',
+            8 => 'straight',
+            9 => 'split',
+            10 => 'corner',
+            11 => 'split',
+            12 => 'corner',
+        ];
+
         for ($i = 0; $i < $this->positionsCount; $i++) {
             $row = floor($i / 3);
             $col = $i % 3;
@@ -129,6 +144,8 @@ class RoulettePage extends Component
                 'x' => $xPositions[$col],
                 'y' => $yPositions[$row],
                 'chips' => $chips[$i],
+                'positionName' => $betTypes[$i+1],
+                'sum' => $chips[$i] * $this->factors[$betTypes[$i+1]],
             ];
         }
 

@@ -15,8 +15,17 @@ Route::view('dashboard', 'dashboard')
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
-    // Добавляем маршрут для страницы рулетки'
+
     Route::get('/roulette', RoulettePage::class)->name('roulette');
+    // Страница выбора режима заставок
+    Route::get('/roulette/stakes', StakesModeSelector::class)->name('stakes.mode');
+
+// Заглушка тренировки (пока)
+    Route::get('/roulette/stakes/training', function () {
+        $mode = session('stakes_mode', '1-2');
+        return view('stakes.training', compact('mode'));
+    })->name('stakes.training');
+
 
     Volt::route('settings/profile', 'settings.profile')->name('profile.edit');
     Volt::route('settings/password', 'settings.password')->name('password.edit');

@@ -13,6 +13,11 @@ class RoulettePage extends Component
         $this->redirectRoute('roulette.stakes'); // или оставьте как заглушку
     }
 
+    public function goToStakesMode()
+    {
+        return redirect()->route('stakes.mode');
+    }
+
     public function render()
     {
         return view('livewire.roulette-page')

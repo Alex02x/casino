@@ -9,11 +9,11 @@
     </div>
 
     <!-- Сетка виджетов (как на dashboard) -->
-    <div class="grid auto-rows-min gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <!-- 1. Заставки (активный) -->
         <div
-            class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-red-900 to-black flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
-            wire:click="startStakesTraining"
+            class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-red-900 to-black flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
+            wire:click="goToStakesMode"
         >
             <div class="text-4xl mb-2">🎯</div>
             <h3 class="text-lg font-semibold mb-1">Заставки</h3>

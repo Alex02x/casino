@@ -79,7 +79,7 @@ class RoulettePage extends Component
         // Генерируем случайные веса
         $randoms = [];
         for ($i = 0; $i < $this->positionsCount; $i++) {
-            $randoms[] = mt_rand(1, 1000); // используем от 1, чтобы избежать нулевых весов
+            $randoms[] = mt_rand(0, 10000); // используем от 1, чтобы избежать нулевых весов
         }
 
         $totalRandom = array_sum($randoms);

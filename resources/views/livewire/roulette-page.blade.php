@@ -106,14 +106,14 @@
             </h2>
 
             <!-- Контейнер для сетки -->
-            <div class="relative w-full h-screen bg-gray-950 rounded-lg pt-10 overflow-hidden">
+            <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
                 <!-- Двойная линия сверху -->
-                <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>
                 <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-15 left-0 right-0 h-1 bg-yellow-400"></div>
 
                 <!-- Горизонтальные линии (разделяют 3 ряда) -->
-                <div class="absolute top-[33%] left-0 right-0 h-1 bg-yellow-400"></div>
-                <div class="absolute top-[66%] left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-[50%] left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-[83%] left-0 right-0 h-1 bg-yellow-400"></div>
 
                 <!-- Вертикальные линии (разделяют 3 колонки) -->
                 <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>

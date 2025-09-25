@@ -31,69 +31,7 @@
             </a>
         @endif
     </div>
-    <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
-        <!-- Заголовок -->
-        <h2 class="text-xl font-bold text-white mb-4">
-            Тренировка: {{ match($selectedStakesMode) {
-                '1-2' => '1–2 стэка',
-                '3-plus' => '3+ стэков',
-                'ultra' => 'Ultra Mode (20+ стэков)',
-                default => 'Неизвестный режим'
-            }
-            }}
-        </h2>
 
-        <!-- Контейнер для сетки -->
-        <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
-            <!-- Двойная линия сверху -->
-            <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>
-            <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>
-
-            <!-- Горизонтальные линии (разделяют 3 ряда) -->
-            <div class="absolute top-[33%] left-0 right-0 h-1 bg-yellow-400"></div>
-            <div class="absolute top-[66%] left-0 right-0 h-1 bg-yellow-400"></div>
-
-            <!-- Вертикальные линии (разделяют 3 колонки) -->
-            <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
-            <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
-
-            <!-- Кружочки ставок -->
-            @foreach ($this->getTrainingPositions() as $bet)
-                <div
-                    class="absolute flex items-center justify-center text-xs font-bold text-white"
-                    style="
-                        left: {{ $bet['x'] }}%;
-                        top: {{ $bet['y'] }}%;
-                        transform: translate(-50%, -50%);
-                        width: 24px;
-                        height: 24px;
-                    "
-                >
-                    <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
-                        {{ $bet['stacks'] }}
-                    </div>
-                </div>
-            @endforeach
-
-            <!-- Кнопка "Вернуться к выбору" -->
-            <button
-                wire:click="goBack"
-                class="absolute bottom-4 right-4 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-md transition-colors"
-            >
-                ← Вернуться к выбору
-            </button>
-        </div>
-
-        <!-- Кнопка "Назад" (всегда внизу) -->
-        <div class="mt-4 text-center">
-            <button
-                wire:click="goBack"
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"
-            >
-                Вернуться к выбору
-            </button>
-        </div>
-    </div>
     <!-- Основной контент -->
     @if ($view === 'modes')
         <!-- 5 основных режимов -->
@@ -154,69 +92,69 @@
             </div>
         </div>
 
-{{--    @elseif ($view === 'training_test')--}}
-{{--        <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">--}}
-{{--            <!-- Заголовок -->--}}
-{{--            <h2 class="text-xl font-bold text-white mb-4">--}}
-{{--                Тренировка: {{ match($selectedStakesMode) {--}}
-{{--                '1-2' => '1–2 стэка',--}}
-{{--                '3-plus' => '3+ стэков',--}}
-{{--                'ultra' => 'Ultra Mode (20+ стэков)',--}}
-{{--                default => 'Неизвестный режим'--}}
-{{--            }--}}
-{{--            }}--}}
-{{--            </h2>--}}
+    @elseif ($view === 'training_test')
+        <div class="flex-1 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gray-900 p-4 relative overflow-hidden">
+            <!-- Заголовок -->
+            <h2 class="text-xl font-bold text-white mb-4">
+                Тренировка: {{ match($selectedStakesMode) {
+                '1-2' => '1–2 стэка',
+                '3-plus' => '3+ стэков',
+                'ultra' => 'Ultra Mode (20+ стэков)',
+                default => 'Неизвестный режим'
+            }
+            }}
+            </h2>
 
-{{--            <!-- Контейнер для сетки -->--}}
-{{--            <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">--}}
-{{--                <!-- Двойная линия сверху -->--}}
-{{--                <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>--}}
-{{--                <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>--}}
+            <!-- Контейнер для сетки -->
+            <div class="relative w-full h-screen bg-gray-950 rounded-lg overflow-hidden">
+                <!-- Двойная линия сверху -->
+                <div class="absolute top-5 left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-10 left-0 right-0 h-1 bg-yellow-400"></div>
 
-{{--                <!-- Горизонтальные линии (разделяют 3 ряда) -->--}}
-{{--                <div class="absolute top-[33%] left-0 right-0 h-1 bg-yellow-400"></div>--}}
-{{--                <div class="absolute top-[66%] left-0 right-0 h-1 bg-yellow-400"></div>--}}
+                <!-- Горизонтальные линии (разделяют 3 ряда) -->
+                <div class="absolute top-[33%] left-0 right-0 h-1 bg-yellow-400"></div>
+                <div class="absolute top-[66%] left-0 right-0 h-1 bg-yellow-400"></div>
 
-{{--                <!-- Вертикальные линии (разделяют 3 колонки) -->--}}
-{{--                <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>--}}
-{{--                <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>--}}
+                <!-- Вертикальные линии (разделяют 3 колонки) -->
+                <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
+                <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
 
-{{--                <!-- Кружочки ставок -->--}}
-{{--                @foreach ($this->getTrainingPositions() as $bet)--}}
-{{--                    <div--}}
-{{--                        class="absolute flex items-center justify-center text-xs font-bold text-white"--}}
-{{--                        style="--}}
-{{--                        left: {{ $bet['x'] }}%;--}}
-{{--                        top: {{ $bet['y'] }}%;--}}
-{{--                        transform: translate(-50%, -50%);--}}
-{{--                        width: 24px;--}}
-{{--                        height: 24px;--}}
-{{--                    "--}}
-{{--                    >--}}
-{{--                        <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">--}}
-{{--                            {{ $bet['stacks'] }}--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                @endforeach--}}
+                <!-- Кружочки ставок -->
+                @foreach ($this->getTrainingPositions() as $bet)
+                    <div
+                        class="absolute flex items-center justify-center text-xs font-bold text-white"
+                        style="
+                        left: {{ $bet['x'] }}%;
+                        top: {{ $bet['y'] }}%;
+                        transform: translate(-50%, -50%);
+                        width: 24px;
+                        height: 24px;
+                    "
+                    >
+                        <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
+                            {{ $bet['stacks'] }}
+                        </div>
+                    </div>
+                @endforeach
 
-{{--                <!-- Кнопка "Вернуться к выбору" -->--}}
-{{--                <button--}}
-{{--                    wire:click="goBack"--}}
-{{--                    class="absolute bottom-4 right-4 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-md transition-colors"--}}
-{{--                >--}}
-{{--                    ← Вернуться к выбору--}}
-{{--                </button>--}}
-{{--            </div>--}}
+                <!-- Кнопка "Вернуться к выбору" -->
+                <button
+                    wire:click="goBack"
+                    class="absolute bottom-4 right-4 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs rounded-md transition-colors"
+                >
+                    ← Вернуться к выбору
+                </button>
+            </div>
 
-{{--            <!-- Кнопка "Назад" (всегда внизу) -->--}}
-{{--            <div class="mt-4 text-center">--}}
-{{--                <button--}}
-{{--                    wire:click="goBack"--}}
-{{--                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"--}}
-{{--                >--}}
-{{--                    Вернуться к выбору--}}
-{{--                </button>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+            <!-- Кнопка "Назад" (всегда внизу) -->
+            <div class="mt-4 text-center">
+                <button
+                    wire:click="goBack"
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-sm"
+                >
+                    Вернуться к выбору
+                </button>
+            </div>
+        </div>
+    @endif
 </div>

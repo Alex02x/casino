@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\RoulettePage;
+use App\Livewire\StakesModeSelector;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;

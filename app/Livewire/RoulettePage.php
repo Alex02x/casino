@@ -163,7 +163,7 @@ class RoulettePage extends Component
             $this->positionsCounts[$positionName] += $sum;
         }
 
-        $this->fullSum = array_sum($results['sum']);
+        $this->fullSum = array_sum(array_column($results, 'sum'));
         return $results;
 
     }

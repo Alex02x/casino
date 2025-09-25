@@ -138,6 +138,10 @@
                         </div>
                     </div>
                 @endforeach
+                counts:
+                {{ $this->positionsCounts }}
+                fullsum:
+                {{ $this->fullSum }}
 
                 <!-- Кнопка "Вернуться к выбору" -->
                 <button

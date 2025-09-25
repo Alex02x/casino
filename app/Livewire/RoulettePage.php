@@ -19,6 +19,10 @@ class RoulettePage extends Component
     protected $trainingBets;
     protected $positionsCount = 12;
 
+    public $fullSum = 0;
+
+    public $positionsCounts = [];
+
 
     public function showStakesModes()
     {
@@ -139,16 +143,21 @@ class RoulettePage extends Component
                 break; // или throw exception, если нужно строгое соответствие
             }
 
+            $positionName = $betTypes[$i+1];
+            $sum = $chips[$i] * $this->factors[$betTypes[$i+1]];
             $results[] = [
                 'id' => $i + 1,
                 'x' => $xPositions[$col],
                 'y' => $yPositions[$row],
                 'chips' => $chips[$i],
-                'positionName' => $betTypes[$i+1],
-                'sum' => $chips[$i] * $this->factors[$betTypes[$i+1]],
+                'positionName' => $positionName,
+                'sum' => $sum,
             ];
+
+            $this->positionsCounts[$positionName] += $sum;
         }
 
+        $this->fullSum = array_sum($results['sum']);
         return $results;
 
     }

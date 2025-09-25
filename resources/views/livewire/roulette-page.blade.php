@@ -132,7 +132,7 @@
                     "
                     >
                         <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">
-                            {{ $bet['stacks'] }}
+                            {{ $bet['chips'] }}
                         </div>
                     </div>
                 @endforeach

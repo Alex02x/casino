@@ -9,6 +9,17 @@ class RoulettePage extends Component
     public string $view = 'modes'; // 'modes', 'stakes', 'training'
     public ?string $selectedStakesMode = null; // '1-2', '3-plus', 'ultra'
 
+    public array $factors = [
+        'straight' => 35,
+        'split' => 17,
+        'street' => 11,
+        'corner' => 8,
+        'sixline' => 5
+    ];
+    protected $trainingBets;
+    protected $positionsCount = 12;
+
+
     public function showStakesModes()
     {
         $this->view = 'stakes';
@@ -32,33 +43,72 @@ class RoulettePage extends Component
         $this->view = 'training_test'; // новое состояние
     }
 
-// Метод для получения данных о ставках (позициях и количестве стэков)
-    public function getTrainingBets()
+    public function generateChips()
     {
-        return [
-            // Пример из вашего скриншота: 12 кружочков с цифрами
-            ['id' => 1, 'x' => 5, 'y' => 90, 'stacks' => 1],   // вверху слева
-            ['id' => 2, 'x' => 30, 'y' => 90, 'stacks' => 2],  // вверху по центру
-            ['id' => 3, 'x' => 40, 'y' => 30, 'stacks' => 3],  // внизу по центру
-            ['id' => 4, 'x' => 55, 'y' => 90, 'stacks' => 4],  // вверху правее центра
-            ['id' => 5, 'x' => 65, 'y' => 90, 'stacks' => 5],  // вверху ещё правее
-            ['id' => 6, 'x' => 50, 'y' => 70, 'stacks' => 6],  // чуть ниже центра (кнопка "Вернуться")
-            ['id' => 7, 'x' => 70, 'y' => 60, 'stacks' => 7],  // справа внизу
-            ['id' => 8, 'x' => 75, 'y' => 40, 'stacks' => 8],  // ещё ниже справа
-            ['id' => 9, 'x' => 80, 'y' => 60, 'stacks' => 9],  // рядом с 7
-            ['id' => 10, 'x' => 90, 'y' => 90, 'stacks' => 10], // вверху справа
-            ['id' => 11, 'x' => 95, 'y' => 40, 'stacks' => 11], // внизу справа
-            ['id' => 12, 'x' => 95, 'y' => 20, 'stacks' => 12], // внизу справа ещё ниже
-        ];
+        switch ($this->selectedStakesMode) {
+            case '1-2':
+                $minChips = 20;
+                $maxChips = 40;
+                break;
+            case '3-plus':
+                $minChips = 60;
+                $maxChips = 120;
+                break;
+            case 'ultra':
+                $minChips = 100;
+                $maxChips = 500;
+                break;
+            default:
+                $minChips = 0;
+                $maxChips = 100;
+        }
+
+        // Защита от некорректных данных
+        if ($this->positionsCount <= 0) {
+            return [];
+        }
+
+        // Выбираем случайное общее количество чипов в диапазоне [minChips, maxChips]
+        $totalChips = mt_rand($minChips, $maxChips);
+
+        // Если totalChips == 0, возвращаем нули
+        if ($totalChips === 0) {
+            return array_fill(0, $this->positionsCount, 0);
+        }
+
+        // Генерируем случайные веса
+        $randoms = [];
+        for ($i = 0; $i < $this->positionsCount; $i++) {
+            $randoms[] = mt_rand(1, 1000); // используем от 1, чтобы избежать нулевых весов
+        }
+
+        $totalRandom = array_sum($randoms);
+
+        $chips = [];
+        $allocated = 0;
+
+        // Распределяем пропорционально, округляя вниз
+        for ($i = 0; $i < $this->positionsCount - 1; $i++) {
+            $value = floor(($randoms[$i] / $totalRandom) * $totalChips);
+            $chips[] = $value;
+            $allocated += $value;
+        }
+
+        // Последнему элементу достаётся остаток
+        $last = max(0, $totalChips - $allocated);
+        $chips[] = $last;
+
+        // Перемешиваем для случайности порядка
+        shuffle($chips);
+
+        return $chips;
     }
 
     // app/Livewire/RoulettePage.php
 
     public function getTrainingPositions()
     {
-        // Координаты x и y в процентах от ширины и высоты контейнера
         return [
-            // Пример из вашего скриншота: 9 кружочков в сетке 3x3
             ['id' => 1, 'x' => 33, 'y' => 7, 'stacks' => 1],   // сверху по центру (над двойной линией)
             ['id' => 2, 'x' => 50, 'y' => 7, 'stacks' => 2],  // левый верхний угол
             ['id' => 3, 'x' => 66, 'y' => 7, 'stacks' => 3],  // центр верхнего ряда
@@ -80,4 +130,6 @@ class RoulettePage extends Component
                 'title' => __('Рулетка — Тренировка'),
             ]);
     }
+
+
 }

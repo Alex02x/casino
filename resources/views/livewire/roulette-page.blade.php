@@ -185,13 +185,13 @@
                     @foreach ($this->getTrainingPositions() as $bet)
                         @if($bet['chips'] != 0)
                             <div
-                                class="absolute flex items-center justify-center text-4xl font-bold text-white"
+                                class="absolute flex items-center justify-center text-2xl font-bold text-white"
                                 style="
                                 left: {{ $bet['x'] }}%;
                                 top: {{ $bet['y'] }}%;
                                 transform: translate(-50%, -50%);
-                                width: 96px;
-                                height: 96px;
+                                width: 48px;
+                                height: 48px;
                             "
                             >
                                 <div class="w-full h-full rounded-full bg-blue-600 flex items-center justify-center shadow-md">

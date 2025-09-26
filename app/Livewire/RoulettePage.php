@@ -50,8 +50,6 @@ class RoulettePage extends Component
 
     public function showResult()
     {
-        // Убедимся, что данные сгенерированы (на случай, если вызвано напрямую)
-        $this->getTrainingPositions(); // это обновит positionsCounts и fullSum
         $this->showingResult = true;
     }
 

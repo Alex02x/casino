@@ -178,8 +178,8 @@
                     <div class="absolute top-20 left-0 right-0 h-1 bg-yellow-400"></div>
                     <div class="absolute top-[40%] left-0 right-0 h-1 bg-yellow-400"></div>
                     <div class="absolute top-[83%] left-0 right-0 h-1 bg-yellow-400"></div>
-                    <div class="absolute left-[33%] top-0 bottom-0 w-1 bg-yellow-400"></div>
-                    <div class="absolute left-[66%] top-0 bottom-0 w-1 bg-yellow-400"></div>
+                    <div class="absolute left-[20%] top-0 bottom-0 w-1 bg-yellow-400"></div>
+                    <div class="absolute left-[80%] top-0 bottom-0 w-1 bg-yellow-400"></div>
 
                     <!-- Ставки -->
                     @foreach ($this->getTrainingPositions() as $bet)

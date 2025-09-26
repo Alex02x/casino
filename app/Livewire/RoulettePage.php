@@ -177,7 +177,7 @@ class RoulettePage extends Component
 
         $results = [];
         $yPositions = [7, 40, 60, 83]; // 4 строки
-        $xPositions = [33, 50, 66];    // 3 колонки
+        $xPositions = [20, 50, 80];    // 3 колонки
 
         $betTypes = [
             1 => 'sixline',

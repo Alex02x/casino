@@ -35,18 +35,29 @@
     <!-- Основной контент -->
     @if ($view === 'modes')
         <!-- 5 основных режимов -->
+        <!-- Внутри блока modes -->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <!-- 1. Заставки -->
             <div
                 class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-red-900 to-black flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
                 wire:click="showStakesModes"
+                wire:loading.class="opacity-50 cursor-not-allowed"
+                wire:target="showStakesModes"
             >
                 <div class="text-3xl mb-2">🎯</div>
                 <h3 class="text-base font-semibold mb-1">Заставки</h3>
                 <p class="text-xs text-gray-300">1–2 стэка, 3+ стэков</p>
+
+                <!-- Прелоадер -->
+                <div wire:loading wire:target="showStakesModes" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-xl">
+                    <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
             </div>
 
-            <!-- Остальные 4 — заглушки -->
+            <!-- Остальные 4 — заглушки (без прелоадера) -->
             @foreach ([
                 'Прямое попадание комплитов',
                 'Пересечения комплитов',
@@ -62,34 +73,37 @@
         </div>
 
     @elseif ($view === 'stakes')
-        <!-- 3 подрежима заставок -->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div
-                class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-emerald-800 to-emerald-900 flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
-                wire:click="startTraining('1-2')"
-            >
-                <div class="text-3xl mb-2">🧱</div>
-                <h3 class="text-base font-semibold mb-1">1–2 стэка</h3>
-                <p class="text-xs text-emerald-200">Простые заставки</p>
-            </div>
+            @foreach ([
+                ['mode' => '1-2', 'label' => '1–2 стэка', 'icon' => '🧱', 'color' => 'emerald'],
+                ['mode' => '3-plus', 'label' => '3+ стэков', 'icon' => '🧱🧱', 'color' => 'amber'],
+                ['mode' => 'ultra', 'label' => 'Ultra Mode', 'icon' => '🔥', 'color' => 'red'],
+            ] as $item)
+                <div
+                    class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-{{ $item['color'] }}-800 to-{{ $item['color'] }}-900 flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
+                    wire:click="startTraining('{{ $item['mode'] }}')"
+                    wire:loading.class="opacity-50 cursor-not-allowed"
+                    wire:target="startTraining('{{ $item['mode'] }}')"
+                >
+                    <div class="text-3xl mb-2">{{ $item['icon'] }}</div>
+                    <h3 class="text-base font-semibold mb-1">{{ $item['label'] }}</h3>
+                    <p class="text-xs text-{{ $item['color'] }}-200">
+                        {{ match($item['mode']) {
+                            '1-2' => 'Простые заставки',
+                            '3-plus' => 'Сложные заставки',
+                            'ultra' => '20+ стэков',
+                        } }}
+                    </p>
 
-            <div
-                class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-amber-800 to-amber-900 flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
-                wire:click="startTraining('3-plus')"
-            >
-                <div class="text-3xl mb-2">🧱🧱</div>
-                <h3 class="text-base font-semibold mb-1">3+ стэков</h3>
-                <p class="text-xs text-amber-200">Сложные заставки</p>
-            </div>
-
-            <div
-                class="relative aspect-[4/3] overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-gradient-to-br from-red-800 to-red-900 flex flex-col items-center justify-center p-4 text-center text-white cursor-pointer hover:opacity-90 transition-opacity"
-                wire:click="startTraining('ultra')"
-            >
-                <div class="text-3xl mb-2">🔥</div>
-                <h3 class="text-base font-semibold mb-1">Ultra Mode</h3>
-                <p class="text-xs text-red-200">20+ стэков</p>
-            </div>
+                    <!-- Прелоадер -->
+                    <div wire:loading wire:target="startTraining('{{ $item['mode'] }}')" class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded-xl">
+                        <svg class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                </div>
+            @endforeach
         </div>
 
     @elseif ($view === 'training_test')
@@ -128,15 +142,21 @@
                 <div class="flex justify-center gap-4">
                     <button
                         wire:click="goBack"
-                        class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-lg"
+                        wire:loading.attr="disabled"
+                        wire:target="goBack"
+                        class="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-md text-lg disabled:opacity-50"
                     >
                         ← Назад к выбору режима
+                        <span wire:loading wire:target="goBack" class="ml-2 inline-block animate-spin h-4 w-4 border-2 border-white rounded-full"></span>
                     </button>
                     <button
                         wire:click="continueTraining"
-                        class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-md text-lg"
+                        wire:loading.attr="disabled"
+                        wire:target="continueTraining"
+                        class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-md text-lg disabled:opacity-50"
                     >
                         Новая тренировка
+                        <span wire:loading wire:target="continueTraining" class="ml-2 inline-block animate-spin h-4 w-4 border-2 border-white rounded-full"></span>
                     </button>
                 </div>
             </div>
@@ -182,19 +202,25 @@
                     @endforeach
                 </div>
 
-                <!-- Кнопки -->
+                <!-- Кнопки в режиме тренировки -->
                 <div class="mt-6 flex justify-center gap-4">
                     <button
                         wire:click="goBack"
-                        class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-lg"
+                        wire:loading.attr="disabled"
+                        wire:target="goBack"
+                        class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-md text-lg disabled:opacity-50"
                     >
                         ← Назад
+                        <span wire:loading wire:target="goBack" class="ml-2 inline-block animate-spin h-4 w-4 border-2 border-white rounded-full"></span>
                     </button>
                     <button
                         wire:click="showResult"
-                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg"
+                        wire:loading.attr="disabled"
+                        wire:target="showResult"
+                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-lg disabled:opacity-50"
                     >
                         Проверить
+                        <span wire:loading wire:target="showResult" class="ml-2 inline-block animate-spin h-4 w-4 border-2 border-white rounded-full"></span>
                     </button>
                 </div>
             </div>

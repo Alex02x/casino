@@ -114,6 +114,7 @@
 
                 <div class="space-y-4 mb-8">
                     {{ dd($positionsCounts) }}
+
                     @foreach ($positionsCounts as $type => $data)
                         @if ($data['chips'] > 0 || $data['sum'] > 0)
                             <div class="flex justify-between items-center p-3 bg-gray-800 rounded">

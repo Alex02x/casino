@@ -91,9 +91,11 @@ class RoulettePage extends Component
 
     public function goBack()
     {
-        if ($this->view === 'training') {
+        if ($this->view === 'training_test') {
             $this->view = 'stakes';
         } elseif ($this->view === 'stakes') {
+            $this->view = 'modes';
+        } else {
             $this->view = 'modes';
         }
     }
